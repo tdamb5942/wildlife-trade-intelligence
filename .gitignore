@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.log
+*.sqlite
+.env
+.venv/
+*.env
+
+# Data
+data/cites/
+
+# Jupyter/VS Code
+.ipynb_checkpoints/
+.vscode/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# OS
+.DS_Store
