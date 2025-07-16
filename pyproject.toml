@@ -5,13 +5,13 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "dagster>=1.11.2",
     "pandas>=2.3.1",
     "pandera>=0.25.0",
 ]
 
 [dependency-groups]
 dev = [
+    "ipython>=9.4.0",
     "pre-commit>=4.2.0",
     "pytest>=8.4.1",
     "ruff>=0.12.3",
