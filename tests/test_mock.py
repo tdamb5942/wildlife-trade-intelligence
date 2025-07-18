@@ -1,5 +1,5 @@
 import pandas as pd
-from src.mock import generate_mock_trafficking_data
+from mock import generate_mock_trafficking_data
 
 
 def test_generate_mock_trafficking_data():

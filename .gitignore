@@ -21,3 +21,6 @@ htmlcov/
 
 # OS
 .DS_Store
+
+# Dagster
+.tmp_dagster_home_*/
