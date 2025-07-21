@@ -1,6 +1,6 @@
 from dagster import Definitions
 from dagster import FilesystemIOManager
-from wtie.defs import (
+from wtie.defs.assets import (
     raw_cites_data,
     cites_data,
     synthetic_data,

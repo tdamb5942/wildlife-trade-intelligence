@@ -14,7 +14,7 @@ repos:
         types: [python]
 
       - id: pytest
-        name: pytest
-        entry: bash -c "PYTHONPATH=$(pwd) uv run pytest"
+        name: pytest with coverage
+        entry: bash -c "PYTHONPATH=$(pwd) uv run pytest tests/ --cov=src --cov-report=term-missing --cov-fail-under=90"
         language: system
         types: [python]
