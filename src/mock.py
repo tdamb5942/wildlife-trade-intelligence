@@ -1,81 +1,111 @@
 import pandas as pd
 
 
-def generate_mock_trafficking_data() -> pd.DataFrame:
+import random
+
+
+def generate_mock_trafficking_data(num_records: int = 50) -> pd.DataFrame:
     """
     Generate synthetic data representing suspicious or illicit wildlife trade flows.
     Returns a DataFrame with the same schema as real CITES data, plus 'synthetic=True'.
     """
-    data = {
-        "Id": [f"SYNTH-{i:04d}" for i in range(1, 11)],
-        "Year": [2023] * 10,
-        "Importer": ["KP", "UA", "RU", "IR", "SD", "LA", "AF", "VE", "SY", "BY"],
-        "Exporter": ["PA", "CW", "AE", "KH", "KZ", "MG", "MM", "EC", "PK", "VN"],
-        "Purpose": ["P", "Z", "P", "P", "P", "Z", "P", "P", "P", "Z"],
-        "Source": ["U", "I", "U", "U", "I", "U", "U", "I", "U", "U"],
-        "Quantity": [5, 2, 10, 7, 1, 3, 8, 4, 6, 2],
-        "Unit": ["no."] * 10,
-        "Term": ["LIV", "SKI", "TRO", "LIV", "LIV", "SKI", "TRO", "LIV", "TRO", "SKI"],
-        "Genus": [
-            "Panthera",
-            "Loxodonta",
-            "Falco",
-            "Panthera",
-            "Crocodylus",
-            "Python",
-            "Psittacus",
-            "Testudo",
-            "Varanus",
-            "Ara",
-        ],
-        "Family": [
-            "Felidae",
-            "Elephantidae",
-            "Falconidae",
-            "Felidae",
-            "Crocodylidae",
-            "Pythonidae",
-            "Psittacidae",
-            "Testudinidae",
-            "Varanidae",
-            "Psittacidae",
-        ],
-        "Order": [
-            "Carnivora",
-            "Proboscidea",
-            "Falconiformes",
-            "Carnivora",
-            "Crocodilia",
-            "Squamata",
-            "Psittaciformes",
-            "Testudines",
-            "Squamata",
-            "Psittaciformes",
-        ],
-        "Class": [
-            "Mammalia",
-            "Mammalia",
-            "Aves",
-            "Mammalia",
-            "Reptilia",
-            "Reptilia",
-            "Aves",
-            "Reptilia",
-            "Reptilia",
-            "Aves",
-        ],
-        "Taxon": [
-            "Panthera leo",
+    country_codes = [
+        "PA",
+        "CW",
+        "AE",
+        "KH",
+        "KZ",
+        "MG",
+        "MM",
+        "EC",
+        "PK",
+        "VN",
+        "KP",
+        "UA",
+        "RU",
+        "IR",
+        "SD",
+        "LA",
+        "AF",
+        "VE",
+        "SY",
+        "BY",
+        "ID",
+        "NG",
+        "TH",
+        "BR",
+        "ZA",
+    ]
+    taxa_data = [
+        ("Panthera leo", "Panthera", "Felidae", "Carnivora", "Mammalia", "LIV"),
+        (
             "Loxodonta africana",
-            "Falco peregrinus",
-            "Panthera pardus",
+            "Loxodonta",
+            "Elephantidae",
+            "Proboscidea",
+            "Mammalia",
+            "SKI",
+        ),
+        ("Falco peregrinus", "Falco", "Falconidae", "Falconiformes", "Aves", "TRO"),
+        (
             "Crocodylus niloticus",
-            "Python bivittatus",
+            "Crocodylus",
+            "Crocodylidae",
+            "Crocodilia",
+            "Reptilia",
+            "LIV",
+        ),
+        ("Python bivittatus", "Python", "Pythonidae", "Squamata", "Reptilia", "SKI"),
+        (
             "Psittacus erithacus",
-            "Testudo graeca",
-            "Varanus komodoensis",
-            "Ara macao",
-        ],
-        "synthetic": [True] * 10,
+            "Psittacus",
+            "Psittacidae",
+            "Psittaciformes",
+            "Aves",
+            "LIV",
+        ),
+        ("Testudo graeca", "Testudo", "Testudinidae", "Testudines", "Reptilia", "TRO"),
+        ("Varanus komodoensis", "Varanus", "Varanidae", "Squamata", "Reptilia", "TRO"),
+        ("Ara macao", "Ara", "Psittacidae", "Psittaciformes", "Aves", "LIV"),
+        ("Manis javanica", "Manis", "Manidae", "Pholidota", "Mammalia", "SKI"),
+    ]
+
+    data = {
+        "Id": [],
+        "Year": [],
+        "Importer": [],
+        "Exporter": [],
+        "Purpose": [],
+        "Source": [],
+        "Quantity": [],
+        "Unit": [],
+        "Term": [],
+        "Genus": [],
+        "Family": [],
+        "Order": [],
+        "Class": [],
+        "Taxon": [],
+        "synthetic": [],
     }
+
+    for i in range(1, num_records + 1):
+        taxon, genus, family, order, class_, term = random.choice(taxa_data)
+        exporter = random.choice(country_codes)
+        importer = random.choice([c for c in country_codes if c != exporter])
+        data["Id"].append(f"SYNTH-{i:04d}")
+        data["Year"].append(random.choice([2017, 2018, 2019, 2020, 2021, 2022, 2023]))
+        data["Importer"].append(importer)
+        data["Exporter"].append(exporter)
+        data["Purpose"].append(random.choice(["P", "Z", "T"]))
+        data["Source"].append(random.choice(["U", "I", "O"]))
+        data["Quantity"].append(random.randint(1, 20))
+        data["Unit"].append("no.")
+        data["Term"].append(term)
+        data["Genus"].append(genus)
+        data["Family"].append(family)
+        data["Order"].append(order)
+        data["Class"].append(class_)
+        data["Taxon"].append(taxon)
+        data["synthetic"].append(True)
+
     return pd.DataFrame(data)
