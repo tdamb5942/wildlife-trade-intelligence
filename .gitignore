@@ -8,8 +8,9 @@ __pycache__/
 *.env
 
 # Data
-data/
-storage/
+data/*
+!data/outputs
+!data/outputs/trade_routes_map.html
 
 # Jupyter/VS Code
 .ipynb_checkpoints/

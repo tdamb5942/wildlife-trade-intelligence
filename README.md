@@ -1,52 +1,98 @@
-# Wildlife Trade Intelligence Explorer
+# Wildlife Trade Intelligence Explorer (WTIE)
 
-## 🧭 Project Overview
-The Wildlife Trade Intelligence Explorer is a proof-of-concept data engineering project designed to model and visualize global wildlife trade flows. Built using real-world data from the CITES Trade Database and simulated illicit trafficking data, this project demonstrates core data engineering competencies including pipeline orchestration, data modeling, geospatial analysis, and network theory.
+## 🧭 Overview
 
-## ❓ Problem Statement
-Illegal wildlife trafficking is a transnational issue that threatens biodiversity and fuels organized crime. Intelligence teams often rely on fragmented datasets that lack structure, context, and analytical insight. This project explores how structured trade data and modeled trafficking flows can be integrated and visualized to identify high-risk corridors, hub countries, and species under pressure.
+WTIE is a data engineering proof of concept that models legal wildlife trade flows and simulates illicit trafficking routes. Built using real CITES data and synthetic scenarios, it supports conservation intelligence teams with rich geospatial and graph-based insights. This project was created as part of a technical interview for Langland Conservation.
 
-## 🎯 Use Case & Impact
-This tool is designed to support conservation intelligence teams by:
-- Identifying high-volume trade corridors for specific species
-- Highlighting transit hubs based on network centrality
-- Surfacing trends in species trade over time
-- Offering a foundation for layering additional OSINT/SIGINT data
+---
+
+## ⚡️ Key Features
+
+- Dagster pipeline with grouped assets (`ingestion`, `outputs`)
+- Geospatial trade route map (Folium)
+- NetworkX graph model with degree centrality metrics
+- Summary tables of top species, countries, and trade corridors
+- 96% test coverage (Pytest + Coverage)
+- CI/CD with GitHub Actions + Pre-commit hooks
+
+---
+
+## ❓ Problem
+
+Illegal wildlife trafficking is a complex, transnational crime that threatens biodiversity and fuels organized networks. Public datasets like the CITES Trade Database provide insight into legal trade, but rarely capture illicit flows. Intelligence teams need tools that can integrate structured data, model suspicious activity, and surface actionable insights.
+
+## 🎯 Purpose
+
+This tool was designed to:
+
+- Highlight high-volume legal trade corridors by species and country
+- Identify potential hub nations via network centrality analysis
+- Simulate suspicious (synthetic) routes for investigative comparison
+- Lay the groundwork for integrating OSINT/SIGINT-style overlays
 
 ## 📊 Outputs
-- **Geospatial Map**: Interactive map of legal trade flows by species and country
-- **Network Metrics**: Centrality scores and hub identification via NetworkX
-- **Summary Tables**: CSV exports of top corridors and trade volumes
+
+- **🗺 Geospatial Map**: `outputs/trade_routes_map.html`
+- **📈 Network Graph Summary**: Displayed in `notebooks/wtie_exploration.ipynb`
+- **📋 Tables**: Top species, countries, and trade corridors (shown in notebook)
+
+---
 
 ## ⚙️ Tech Stack
-- **Python**: Core language for all scripting and analysis
-- **Dagster**: Data pipeline orchestration
-- **Pandas / GeoPandas**: Data transformation and spatial processing
-- **NetworkX**: Route modeling and centrality analysis
-- **Folium**: Geospatial visualization
-- **SQLite**: Lightweight data storage
-- **uv**: Environment and dependency management
-- **Pytest**: Unit testing for transformation logic
-- **GitHub Actions**: CI/CD for automated testing and linting
 
-## 🔄 Data Transparency
-- **CITES Trade Data**: Official database of reported international wildlife trade transactions. Only legal trade is represented here.
-- **Synthetic Route Data**: A small set of manually curated trafficking route scenarios is included to simulate OSINT-style intelligence modeling. These are clearly labeled and not sourced from real interdiction data.
+- **Dagster** – Orchestration of ingestion, modeling, and outputs
+- **Pandas / GeoPandas** – Transformation and spatial joins
+- **NetworkX** – Graph construction and metrics
+- **Folium** – Interactive route mapping
+- **uv** – Dependency management
+- **Pytest** – Lightweight unit testing
+- **GitHub Actions** – CI for formatting and test checks
 
-## 🧩 Limitations & Future Work
-- This is a simplified proof-of-concept. Real trafficking data is rarely publicly accessible.
-- Spatial overlays (e.g., deforestation, infrastructure) are not yet integrated.
-- Future versions could include:
-  - Live data ingestion from NGO endpoints
-  - Real-time dashboards with anomaly detection
-  - Integration with conservation databases and protected areas
+---
 
-## 🧠 Interview Talking Points
-- **Problem → Goal → Design → Impact** narrative
-- Why Dagster? Why this schema? What challenges?
-- How trade routes were modeled as graphs
-- What insights were uncovered through centrality metrics
+## 🌍 Coordinate Challenges
 
-## 🛠 Setup Instructions (Coming Soon)
-Instructions for setting up the environment and running the pipeline will be added after initial development.
+CITES data includes country ISO codes, but not coordinates. Initially, a small centroid file caused visual errors. We resolved this by switching to a broader dataset from [Gavin Rehkemper’s open data repo](https://gavinr.com/open-data/world-countries-centroids/), mapping all valid ISO codes to latitude and longitude. Legacy codes (e.g. `SU`, `YU`, `ZC`) are skipped with warnings.
 
+---
+
+## 🧪 Data Strategy
+
+- **CITES Trade Database**: Official, legal trade shipments (CSV)
+- **Synthetic Trafficking Scenarios**: Manually defined illicit routes, labeled with a `synthetic=True` flag
+- **Permit IDs**: Anonymized using hashed random identifiers to simulate real shipment linkage
+
+---
+
+## 🧭 Ethical Use of Data
+
+Synthetic routes are generated for illustrative purposes only and do not represent real trafficking intelligence. This project follows ethical OSINT simulation practices and data minimization principles.
+
+---
+
+## ▶️ Quickstart
+
+```bash
+uv venv
+uv sync
+uv run dagster dev
+```
+
+Then open `notebooks/wtie_exploration.ipynb` to explore the data and view the map and summary tables inline.
+
+---
+
+## 🧪 Testing
+
+```bash
+uv run pytest
+```
+
+- 96% test coverage enforced locally and via CI
+- Pre-commit hooks check formatting and test status before push
+
+---
+
+## 🤖 Agentic Collaboration & Tooling
+
+This project was iteratively designed and developed using agentic coding tools. The initial concept and architecture were refined through collaborative critique with Claude (Anthropic) and Gemini (Google), focusing on narrative clarity and technical feasibility. The implementation sprint was then executed in close pair programming collaboration with ChatGPT (OpenAI), leveraging its structured reasoning and context awareness to design robust pipelines, debug efficiently, and optimize code quality. This agentic workflow enabled rapid prototyping, thoughtful iteration, and adherence to security-conscious best practices throughout.
