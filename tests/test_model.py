@@ -1,6 +1,6 @@
 import pandas as pd
 import networkx as nx
-from src.wtie.graph.model import build_trade_graph, summarise_graph
+from wtie.graph.model import build_trade_graph, summarise_graph
 
 
 def test_build_trade_graph():
