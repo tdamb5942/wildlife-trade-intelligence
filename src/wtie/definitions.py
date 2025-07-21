@@ -1,4 +1,5 @@
 from dagster import Definitions
+from dagster import FilesystemIOManager
 from wtie.defs import (
     raw_cites_data,
     cites_data,
@@ -7,10 +8,6 @@ from wtie.defs import (
     top_species_by_volume,
     top_trade_routes,
 )
-import sys
-from pathlib import Path
-
-sys.path.insert(0, str(Path(__file__).parent.parent))
 
 defs = Definitions(
     assets=[
@@ -21,4 +18,5 @@ defs = Definitions(
         top_species_by_volume,
         top_trade_routes,
     ],
+    resources={"io_manager": FilesystemIOManager(base_dir="storage")},
 )

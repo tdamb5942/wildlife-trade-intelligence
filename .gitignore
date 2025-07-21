@@ -9,6 +9,7 @@ __pycache__/
 
 # Data
 data/cites/
+storage/
 
 # Jupyter/VS Code
 .ipynb_checkpoints/
