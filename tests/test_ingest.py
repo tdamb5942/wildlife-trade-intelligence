@@ -1,4 +1,4 @@
-from src.ingest import load_cites_data
+from ingest import load_cites_data
 import pandas as pd
 import pytest
 
