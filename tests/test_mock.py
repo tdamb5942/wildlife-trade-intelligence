@@ -5,7 +5,7 @@ from mock import generate_mock_trafficking_data
 def test_generate_mock_trafficking_data():
     df = generate_mock_trafficking_data()
     assert isinstance(df, pd.DataFrame)
-    assert len(df) == 10
+    assert len(df) == 50
     assert "synthetic" in df.columns
     assert df["synthetic"].all()
 
