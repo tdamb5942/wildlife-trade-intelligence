@@ -18,5 +18,5 @@ defs = Definitions(
         top_species_by_volume,
         top_trade_routes,
     ],
-    resources={"io_manager": FilesystemIOManager(base_dir="storage")},
+    resources={"io_manager": FilesystemIOManager(base_dir="data/storage")},
 )
